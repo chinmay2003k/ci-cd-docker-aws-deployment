@@ -32,10 +32,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Pull the correct image (same as pushed)
             docker pull ${{ secrets.DOCKER_USERNAME }}/flask-app:latest
-            # Stop old container if exists
             docker stop flask-container || true
             docker rm flask-container || true
-            # Run new container
             docker run -d -p 80:5000 --name flask-container ${{ secrets.DOCKER_USERNAME }}/flask-app:latest
